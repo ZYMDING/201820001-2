@@ -1,36 +1,68 @@
 import java.util.Random;
+public abstract class Formula{
 
-public class Formula {
+    static final int UPPER = 100;
+    static final int LOWER = 0;
+    private int leftRandom = 0;     // 左操作数
+    private int rightRandom = 0;    // 右操作数
+    private char operator;          // 操作符
+    private int  value;             // 算式的结果
 
-    public static int[] produceAddFormula(){                   //生成加法算式
+    abstract int calculate(int left, int right);  //抽象方法：算式的计算，由子类实现
+    abstract boolean checkingFormula(int anInteger); // 抽象方法，检验计算结果，子类负责实现
+
+    protected void generateFormula(char symbol) {
+        int[] Formula = new int[2];
+        int result;
         Random random = new Random();
-        int []AddFormula =new int[3];
-        AddFormula[2] = 0;
         do {
-            AddFormula[0] = (int)random.nextInt(101);
-            AddFormula[1] = (int)random.nextInt(101);
-        } while (AddFormula[0] + AddFormula[1] > 100);
-        return AddFormula;
+            Formula[0] = random.nextInt(UPPER+1);   //产生左操作数
+            Formula[1] = random.nextInt(UPPER+1);   //产生右操作数
+            result = calculate(Formula[0], Formula[1]);
+        }while(!checkingFormula(result));
+        leftRandom = Formula[0];
+        rightRandom = Formula[1];
+        operator = symbol;
+        value = result;
     }
 
-    public static int[] produceSubstactFormula(){               //生成减法算式
-        Random random = new Random();
-        int []SubstactFormula = new int[3];
-        SubstactFormula[2] = 1;
-        do {
-            SubstactFormula[0] = (int)random.nextInt(101);
-            SubstactFormula[1] = (int)random.nextInt(101);
-        } while (SubstactFormula[0] - SubstactFormula[1] < 0);
-        return SubstactFormula;
+    public int getLeftRandom() {
+        return leftRandom;
     }
 
-    public static int[] produceRandomFormula(){                //随机生成算式
-        Random random = new Random();
-        int symbol = (int)random.nextInt(2);
-        if(symbol == 0){
-            return produceAddFormula();
-        }else {
-            return  produceSubstactFormula();
-        }
+    public int getRightRandom() {
+        return rightRandom;
     }
+
+    public char getOperator() {
+        return operator;
+    }
+
+    public int getResult() {
+        return value;
+    }
+    //比较两个算式是否相等
+    public boolean checkEquals(Formula anOperation) {
+        return leftRandom == anOperation.getLeftRandom() &&
+                rightRandom == anOperation.getRightRandom() &&
+                operator == anOperation.getOperator();
+    }
+
+    public String toString() {
+        String str;
+        str = String.format("%3d %c %3d ", leftRandom, getOperator(), rightRandom);
+
+        return str;
+    }
+
+    public String asString() {
+        return toString() + " = ";
+    }
+
+    public String fullString() {
+        return toString() + " = " + getResult();
+    }
+
 }
+
+

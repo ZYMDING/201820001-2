@@ -1,61 +1,61 @@
-public class Exercise  {
-    public int[][] exercises = new int[50][3];
-    public int[][] produceExercises () {              //生成习题
-        int[] array = new int[3];
-        for (int i = 0; i < 50; i++) {
-            if (i == 0) {
-                exercises[i] =Formula.produceRandomFormula();
-            } else {
-                for (int j = 0; j < i; j++) {
-                    array =Formula.produceRandomFormula();
-                    while (check(array, exercises[j])) {
-                        array =Formula.produceRandomFormula();
-                    }
-                    exercises[j] = array;
-                }
-            }
-        }
-        return exercises;
-    }
+ import java.util.ArrayList;
+import java.util.Random;
 
-    //程序生成没有重复算式的习题
-    public boolean check(int[] a,int[] b) {
+public class Exercise {
+    // 存放算式的动态数组
+    private ArrayList<Formula> operationList = new ArrayList<Formula>();
+    private int current = 0; // 动态数组的游标
 
-        if (((a[0] == b[0]) && a[1] == b[1]) && (a[2] == b[2])) {
-            return true;
-        } else if ((a[0] == b[1]) && (a[1] == b[0]) && (a[2] == 0) && (b[2] == 0)) {
-            return true;
-        } else {
-            return false;
+    //产生加法算式习题
+    public void generateAdditionExercise(int operationCount) {
+        Formula anOperation;
+        while(operationCount > 0) {
+            do {
+                anOperation = new AddFormula();
+            }while(operationList.contains(anOperation));
+            operationList.add(anOperation);
+            operationCount--;
         }
     }
 
-    public void outputExercises(){                       //输出习题
-        for(int i = 0;i < 50; i++){
-            System.out.print((i+1) + ":\t");
-            if (exercises[i][2] == 0){
-                System.out.print(String.format("%2d + %2d = ", exercises[i][0], exercises[i][1])+'\t'+'\t');
-            }else {
-                System.out.print(String.format("%2d - %2d = ", exercises[i][0], exercises[i][1])+'\t'+'\t');
-            }
-            if((i+1) % 5 == 0)
-                System.out.println();
+    // 产生减法算式习题
+    public void generateSubstractExercise(int operationCount) {
+        Formula anOperation;
+        while(operationCount > 0) {
+            do {
+                anOperation = new SubstractFormula();
+            }while(operationList.contains(anOperation));
+            operationList.add(anOperation);
+            operationCount--;
         }
     }
-    public void produceResult(){                         //输出答案
-        int []result = new int[50];
-        for (int i = 0; i < 50; i++){
-            if (exercises[i][2] == 0){
-                result[i] = exercises[i][0]+exercises[i][1];
-            }else {
-                result[i] = exercises[i][0]-exercises[i][1];
-            }
-        }
-        for (int i = 0; i < 50; i ++){
-            System.out.print(String.format("%2d : %3d ", (i + 1), result[i])+'\t'+'\t');
-            if((i+1) % 5 == 0)
-                System.out.println();
+
+    //产生混合习题
+    public void generateExercise(int operationCount) {
+        Formula anOperation;
+        Random random = new Random();
+        while(operationCount > 0) {
+            do {
+                int opValue = random.nextInt(2);
+                if(opValue == 0)
+                    anOperation = new AddFormula();
+                else
+                    anOperation = new SubstractFormula();
+            }while(operationList.contains(anOperation));
+            operationList.add(anOperation);
+            operationCount--;
         }
     }
+
+    public boolean hasNext() {
+        return current <= operationList.size()-1;
+    }
+
+    public Formula next() {
+        return operationList.get(current++);
+    }
+
 }
+
+
 
