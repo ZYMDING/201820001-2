@@ -1,17 +1,14 @@
-
-public class AddFormula extends Formula{
-
+public class AddFormula extends Formula {
+    //加法子类构造函数
     public AddFormula() {
-         generateFormula('+');
+        this.generateFormula('+');
     }
-    //检查结果约束
+    //检查结果是否小于100
     public boolean checkingFormula(int anInteger) {
-        return anInteger <= UPPER;
+        return anInteger <= 100;
     }
-
-    //加法计算的实现
+    //实现加法计算
     public int calculate(int left, int right) {
         return left + right;
     }
 }
-

@@ -1,61 +1,69 @@
- import java.util.ArrayList;
+//
+// Source code recreated from a .class file by IntelliJ IDEA
+// (powered by FernFlower decompiler)
+//
+
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Exercise {
-    // 存放算式的动态数组
-    private ArrayList<Formula> operationList = new ArrayList<Formula>();
-    private int current = 0; // 动态数组的游标
+    private ArrayList<Formula> operationList = new ArrayList();
+    private int current = 0;
 
-    //产生加法算式习题
+    public Exercise() {
+    }
+    //产生加法算式
     public void generateAdditionExercise(int operationCount) {
-        Formula anOperation;
         while(operationCount > 0) {
+            AddFormula anOperation;
             do {
                 anOperation = new AddFormula();
-            }while(operationList.contains(anOperation));
-            operationList.add(anOperation);
-            operationCount--;
+            } while(this.operationList.contains(anOperation));
+
+            this.operationList.add(anOperation);
+            --operationCount;
         }
+
     }
 
-    // 产生减法算式习题
+    //产生减法算式
     public void generateSubstractExercise(int operationCount) {
-        Formula anOperation;
         while(operationCount > 0) {
+            SubstractFormula anOperation;
             do {
                 anOperation = new SubstractFormula();
-            }while(operationList.contains(anOperation));
-            operationList.add(anOperation);
-            operationCount--;
-        }
-    }
+            } while(this.operationList.contains(anOperation));
 
-    //产生混合习题
+            this.operationList.add(anOperation);
+            --operationCount;
+        }
+
+    }
+    //产生加减法随机算式
     public void generateExercise(int operationCount) {
-        Formula anOperation;
-        Random random = new Random();
-        while(operationCount > 0) {
+        for(Random random = new Random(); operationCount > 0; --operationCount) {
+            Object anOperation;
             do {
                 int opValue = random.nextInt(2);
-                if(opValue == 0)
+                if (opValue == 0) {
                     anOperation = new AddFormula();
-                else
+                } else {
                     anOperation = new SubstractFormula();
-            }while(operationList.contains(anOperation));
-            operationList.add(anOperation);
-            operationCount--;
-        }
-    }
+                }
+            } while(this.operationList.contains(anOperation));
 
+            this.operationList.add((Formula) anOperation);
+        }
+
+    }
+    //判断是否有下一个算式
     public boolean hasNext() {
-        return current <= operationList.size()-1;
+        return this.current <= this.operationList.size() - 1;
     }
 
     public Formula next() {
-        return operationList.get(current++);
+        return (Formula)this.operationList.get(this.current++);
     }
-
 }
-
 
 

@@ -1,19 +1,15 @@
-
-public class SubstractFormula extends Formula{
-
+public class SubstractFormula extends Formula {
+    //减法子类构造函数
     public SubstractFormula() {
-        generateFormula('-');
+        this.generateFormula('-');
     }
-    //检查结果约束
+    //检查结果是否大于0
     public boolean checkingFormula(int anInteger) {
-        return anInteger >= LOWER;
+        return anInteger >= 0;
     }
-    //减法计算实现
+    //实现减法计算
     public int calculate(int left, int right) {
         return left - right;
     }
 }
-
-
-
 

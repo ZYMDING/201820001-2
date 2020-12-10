@@ -1,29 +1,30 @@
+
 import org.junit.jupiter.api.Test;
 
 class FormulaTest {
     AddFormula addtest = new AddFormula();
+
+    FormulaTest() {
+    }
+
     @Test
     void checkEquals() {
-        addtest.equals(addtest);
-
+        this.addtest.equals(this.addtest);
     }
 
     @Test
     String testToString() {
-        String add;
-        add = String.format("%3d %c %3d ", addtest.getLeftRandom(), addtest.getOperator(), addtest.getRightRandom());
+        String add = String.format("%3d %c %3d ", this.addtest.getLeftRandom(), this.addtest.getOperator(), this.addtest.getRightRandom());
         return add;
     }
 
     @Test
     String asString() {
-        return addtest.toString() + " = ";
-
-
+        return this.addtest.toString() + " = ";
     }
 
     @Test
     String fullString() {
-        return addtest.toString() + " = " + addtest.getResult();
+        return this.addtest.toString() + " = " + this.addtest.getResult();
     }
 }
