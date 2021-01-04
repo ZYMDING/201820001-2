@@ -42,7 +42,8 @@ public class ExerciseSheet {
         exerciseSub.generateSubstractExercise(50);
         sheet.formattedDisplay(exerciseSub, 5);
         System.out.println("加减法混合算式习题");
-        exerciseMix.generateExercise(50);                 //产生随机算式习题
+        exerciseMix.generateWithFormerType(50);                 //产生随机算式习题
         sheet.formattedDisplay(exerciseMix, 5);
     }
+
 }

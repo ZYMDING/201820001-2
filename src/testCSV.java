@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class testCSV {
+public class testCSV extends Throwable {
 	private static final String pathTest = "D:\\ScCsv\\Test\\";//练习文件存放位置
 	private static final String pathExercise = "D:\\ScCsv\\Exercise\\";//习题文件存放位置
 	private  static final String pathCorrection = "D:\\ScCsv\\Correction\\";//批改文件存放位置
@@ -41,7 +41,7 @@ public class testCSV {
 				String file = (pathExercise + "exercise" + (i + 1) + ".csv");
 				createFile(file);
 				Exercise exercise = new Exercise();
-				exercise.generateExercise(50);
+				exercise.generateWithFormerType(50);
 				CsvWriter csvWriter = new CsvWriter((pathExercise + "exercise" + (i + 1) + ".csv"), ',', Charset.forName("GB2312"));
 				String[] csvHeader = {"左", "运算符", "右运算数", "等号"};
 				csvWriter.writeRecord(csvHeader);

@@ -69,6 +69,31 @@ public abstract class Formula {
     public String fullString() {
         return this.toString() + " = " + this.getResult();
     }
+
+    private void unsafeConstructor(int left,int right, char anOperator){
+        leftRandom = left;
+        rightRandom = right;
+        operator = anOperator;
+        value = anOperator == '+'?left+right:left-right;
+    }
+    public void unsafeConstructor(int left,int right, int result, char anOperator){
+        left = left;
+        rightRandom = right;
+        operator = anOperator;
+        value = result;
+    }
+    public void unsafeConstructor(String eqString){
+        int opPos=0;
+        int length=eqString.length();
+        // try to locate the position of the operator either '+' or '-'
+        opPos=eqString.indexOf("+");
+        if (opPos <= 0){
+            opPos=eqString.indexOf("-");
+        }
+        unsafeConstructor(Integer.parseInt(eqString.substring(0,opPos)),
+                Integer.parseInt(eqString.substring(opPos+1,length)),
+                eqString.charAt(opPos));
+    }
 }
 
 
